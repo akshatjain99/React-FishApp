@@ -39,8 +39,6 @@ class App extends React.Component{
 		base.removeBinding(this.ref);
 	}
 
-
-
 	addFish = (fish) =>{
 		const fishes = {...this.state.fishes};
 		fishes[`fish${Date.now()}`] = fish;
@@ -63,6 +61,21 @@ class App extends React.Component{
 		});
 	}
 
+	removeFromOrder = (key) =>{
+		const order = {...this.state.order};
+		delete order[key];
+		this.setState({
+			order : order
+		});
+	}
+
+
+	deleteFish = (key) =>{
+		const fishes = {...this.state.fishes};
+		fishes[key] = null;
+		this.setState({fishes});
+	}
+
 	updateFish = (key, updatedFish) =>{
 		const fishes = {...this.state.fishes};
 		fishes[key]= updatedFish;
@@ -80,8 +93,8 @@ class App extends React.Component{
 						}
 					</ul>
 				</div>
-				<Order fishes={this.state.fishes} order={this.state.order} />				
-				<Inventory fishes={this.state.fishes} addFish = {this.addFish} updateFish = {this.updateFish} loadSampleFishes = {this.loadSampleFishes}/>
+				<Order removeFromOrder={this.removeFromOrder} fishes={this.state.fishes} order={this.state.order} />				
+				<Inventory deleteFish={this.deleteFish} fishes={this.state.fishes} addFish = {this.addFish} updateFish = {this.updateFish} loadSampleFishes = {this.loadSampleFishes}/>
 			</div>
 		)
 	}
